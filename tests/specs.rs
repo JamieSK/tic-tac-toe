@@ -29,3 +29,18 @@ fn cannot_play_in_occupied_cell() {
     game.play(1).unwrap();
     assert_eq!(game.play(1), Err("Occupied cell."));
 }
+
+#[test]
+fn can_play_in_all_cells() {
+    let mut game = Game::new();
+    game.play(1).unwrap();
+    game.play(2).unwrap();
+    game.play(3).unwrap();
+    game.play(6).unwrap();
+    game.play(4).unwrap();
+    game.play(7).unwrap();
+    game.play(5).unwrap();
+    game.play(9).unwrap();
+    game.play(8).unwrap();
+    assert_eq!("X|O|X\nX|X|O\nO|X|O\n", game.to_string());
+}
