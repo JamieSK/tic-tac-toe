@@ -39,9 +39,15 @@ impl Game {
                 self.board[6], self.board[7], self.board[8])
     }
 
-    pub fn play(&mut self, cell: usize) {
-        self.board[cell - 1] = self.player;
-        swap_player(self);
+    pub fn play(&mut self, cell: usize) -> Result<&str, &str> {
+        match self.board[cell - 1] {
+            Player::X | Player::O => Err("Occupied cell."),
+            Player::None => {
+                self.board[cell - 1] = self.player;
+                swap_player(self);
+                Ok("Played a turn")
+            }
+        }
     }
 
 }
