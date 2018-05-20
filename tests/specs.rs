@@ -1,6 +1,7 @@
 extern crate Noughts_and_Crosses;
 
 use Noughts_and_Crosses::Game;
+use Noughts_and_Crosses::State;
 
 #[test]
 fn it_starts_blank() {
@@ -43,4 +44,10 @@ fn can_play_in_all_cells() {
     game.play(9).unwrap();
     game.play(8).unwrap();
     assert_eq!("X|O|X\nX|X|O\nO|X|O\n", game.to_string());
+}
+
+#[test]
+fn unplayed_game_is_in_unfinished_state() {
+    let game = Game::new();
+    assert_eq!(State::InPlay, game.state());
 }

@@ -19,6 +19,13 @@ impl fmt::Display for Player {
     }
 }
 
+#[derive(Debug, Eq, PartialEq)]
+pub enum State {
+    Won,
+    Stalemate,
+    InPlay,
+}
+
 pub struct Game {
     player: Player,
     board: [Player; 9],
@@ -50,6 +57,9 @@ impl Game {
         }
     }
 
+    pub fn state(& self) -> State {
+        State::InPlay
+    }
 }
 
 fn swap_player(game: &mut Game) {
