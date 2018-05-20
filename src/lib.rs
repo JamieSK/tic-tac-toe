@@ -74,7 +74,10 @@ impl Game {
     }
 
     fn set_winner(&mut self) {
-        let lines: Vec<Vec<usize>> = vec![vec![0, 1, 2], vec![3, 4, 5], vec![6, 7, 8]];
+        let lines: Vec<Vec<usize>> = vec![
+            vec![0, 1, 2], vec![3, 4, 5], vec![6, 7, 8],
+            vec![0, 3, 6],
+        ];
 
         for line in lines {
             let first_cell = line[0];
