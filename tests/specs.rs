@@ -122,3 +122,14 @@ fn can_win_vertically_on_middle_column() {
     game.play(8).unwrap();
     assert_eq!(State::Won(Player::X), game.state());
 }
+
+#[test]
+fn can_win_vertically_on_right_column() {
+    let mut game = Game::new();
+    game.play(3).unwrap();
+    game.play(1).unwrap();
+    game.play(6).unwrap();
+    game.play(4).unwrap();
+    game.play(9).unwrap();
+    assert_eq!(State::Won(Player::X), game.state());
+}
