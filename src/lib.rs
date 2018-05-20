@@ -74,11 +74,31 @@ impl Game {
     }
 
     fn set_winner(&mut self) {
-        if self.board[0] == self.board[1] && self.board[1] == self.board[2] {
-            self.winner = self.board[0];
-        } else if self.board[3] == self.board[4] && self.board[4] == self.board[5] {
-            self.winner = self.board[3];
+        let lines: Vec<Vec<usize>> = vec![vec![0, 1, 2], vec![3, 4, 5], vec![6, 7, 8]];
+
+        for line in lines {
+            let first_cell = line[0];
+            if self.is_winning_line(line) {
+                self.winner = self.board[first_cell];
+            }
         }
+    }
+
+    fn is_winning_line(&self, cells: Vec<usize>) -> bool {
+        let mut cells_iter = cells.iter();
+        let first: Player = self.board[*cells_iter.next().unwrap()];
+
+        if first == Player::None {
+            return false
+        }
+
+        for cell in cells_iter {
+            if self.board[*cell] != first {
+                return false;
+            }
+        }
+
+        return true;
     }
 }
 
