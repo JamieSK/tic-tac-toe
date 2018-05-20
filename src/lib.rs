@@ -29,6 +29,7 @@ pub enum State {
 pub struct Game {
     player: Player,
     board: [Player; 9],
+    total_turns: u8,
 }
 
 impl Game {
@@ -36,6 +37,7 @@ impl Game {
         Game {
             player: Player::X,
             board: [Player::None; 9],
+            total_turns: 0,
         }
     }
 
@@ -51,6 +53,7 @@ impl Game {
             Player::X | Player::O => Err("Occupied cell."),
             Player::None => {
                 self.board[cell - 1] = self.player;
+                self.total_turns += 1;
                 swap_player(self);
                 Ok("Played a turn")
             }
@@ -58,7 +61,11 @@ impl Game {
     }
 
     pub fn state(& self) -> State {
-        State::InPlay
+        if self.total_turns > 8 {
+            State::Stalemate
+        } else {
+            State::InPlay
+        }
     }
 }
 

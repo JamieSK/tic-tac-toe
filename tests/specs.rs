@@ -1,7 +1,7 @@
-extern crate Noughts_and_Crosses;
+extern crate noughts_and_crosses;
 
-use Noughts_and_Crosses::Game;
-use Noughts_and_Crosses::State;
+use noughts_and_crosses::Game;
+use noughts_and_crosses::State;
 
 #[test]
 fn it_starts_blank() {
@@ -50,4 +50,19 @@ fn can_play_in_all_cells() {
 fn unplayed_game_is_in_unfinished_state() {
     let game = Game::new();
     assert_eq!(State::InPlay, game.state());
+}
+
+#[test]
+fn full_board_with_no_winner_is_stalemate() {
+    let mut game = Game::new();
+    game.play(1).unwrap();
+    game.play(2).unwrap();
+    game.play(3).unwrap();
+    game.play(6).unwrap();
+    game.play(4).unwrap();
+    game.play(7).unwrap();
+    game.play(5).unwrap();
+    game.play(9).unwrap();
+    game.play(8).unwrap();
+    assert_eq!(State::Stalemate, game.state());
 }

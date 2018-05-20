@@ -1,5 +1,5 @@
 [package]
-name = "Noughts_and_Crosses"
+name = "noughts_and_crosses"
 version = "0.1.0"
 authors = ["Jamie Klein <jamiesklein@gmail.com>"]
 
