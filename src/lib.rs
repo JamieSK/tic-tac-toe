@@ -1,6 +1,6 @@
 use std::fmt;
 
-#[derive(Copy, Clone)]
+#[derive(Debug, Copy, Clone, PartialEq)]
 pub enum Player {
     X,
     O,
@@ -19,9 +19,9 @@ impl fmt::Display for Player {
     }
 }
 
-#[derive(Debug, Eq, PartialEq)]
+#[derive(Debug, PartialEq)]
 pub enum State {
-    Won,
+    Won(Player),
     Stalemate,
     InPlay,
 }
@@ -30,6 +30,7 @@ pub struct Game {
     player: Player,
     board: [Player; 9],
     total_turns: u8,
+    winner: Player,
 }
 
 impl Game {
@@ -38,6 +39,7 @@ impl Game {
             player: Player::X,
             board: [Player::None; 9],
             total_turns: 0,
+            winner: Player::None,
         }
     }
 
@@ -60,11 +62,20 @@ impl Game {
         }
     }
 
-    pub fn state(& self) -> State {
-        if self.total_turns > 8 {
+    pub fn state(&mut self) -> State {
+        self.set_winner();
+        if self.winner != Player::None {
+            State::Won(self.winner)
+        } else if self.total_turns > 8 {
             State::Stalemate
         } else {
             State::InPlay
+        }
+    }
+
+    fn set_winner(&mut self) {
+        if self.board[0] == self.board[1] && self.board[1] == self.board[2] {
+            self.winner = self.board[0];
         }
     }
 }
