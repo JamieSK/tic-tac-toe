@@ -76,6 +76,8 @@ impl Game {
     fn set_winner(&mut self) {
         if self.board[0] == self.board[1] && self.board[1] == self.board[2] {
             self.winner = self.board[0];
+        } else if self.board[3] == self.board[4] && self.board[4] == self.board[5] {
+            self.winner = self.board[3];
         }
     }
 }

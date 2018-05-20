@@ -78,3 +78,14 @@ fn can_win_horizontally_on_top_row() {
     game.play(3).unwrap();
     assert_eq!(State::Won(Player::X), game.state());
 }
+
+#[test]
+fn can_win_horizontally_on_middle_row() {
+    let mut game = Game::new();
+    game.play(4).unwrap();
+    game.play(1).unwrap();
+    game.play(5).unwrap();
+    game.play(2).unwrap();
+    game.play(6).unwrap();
+    assert_eq!(State::Won(Player::X), game.state());
+}
