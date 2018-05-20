@@ -51,6 +51,10 @@ impl Game {
     }
 
     pub fn play(&mut self, cell: usize) -> Result<&str, &str> {
+        if cell < 1 || cell > 9 {
+            return Err("Off the board.");
+        }
+
         match self.board[cell - 1] {
             Player::X | Player::O => Err("Occupied cell."),
             Player::None => {

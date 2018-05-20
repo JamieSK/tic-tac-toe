@@ -167,3 +167,9 @@ fn can_win_as_o() {
     game.play(3).unwrap();
     assert_eq!(State::Won(Player::O), game.state());
 }
+
+#[test]
+fn cannot_play_out_of_board() {
+    let mut game = Game::new();
+    assert_eq!(Err("Off the board."), game.play(0));
+}
