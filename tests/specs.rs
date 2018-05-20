@@ -155,3 +155,15 @@ fn can_win_diagonally_from_bottom_left() {
     game.play(3).unwrap();
     assert_eq!(State::Won(Player::X), game.state());
 }
+
+#[test]
+fn can_win_as_o() {
+    let mut game = Game::new();
+    game.play(7).unwrap();
+    game.play(1).unwrap();
+    game.play(4).unwrap();
+    game.play(2).unwrap();
+    game.play(8).unwrap();
+    game.play(3).unwrap();
+    assert_eq!(State::Won(Player::O), game.state());
+}
