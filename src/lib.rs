@@ -60,7 +60,7 @@ impl Game {
             Player::None => {
                 self.board[cell - 1] = self.player;
                 self.total_turns += 1;
-                swap_player(self);
+                self.swap_player();
                 Ok("Played a turn")
             }
         }
@@ -88,6 +88,7 @@ impl Game {
             let first_cell = line[0];
             if self.is_winning_line(line) {
                 self.winner = self.board[first_cell];
+                break;
             }
         }
     }
@@ -108,12 +109,12 @@ impl Game {
 
         return true;
     }
-}
 
-fn swap_player(game: &mut Game) {
-    game.player = match game.player {
-        Player::X => Player::O,
-        Player::O => Player::X,
-        Player::None => Player::None,
+    fn swap_player(&mut self) {
+        self.player = match self.player {
+            Player::X => Player::O,
+            Player::O => Player::X,
+            Player::None => Player::None,
+        }
     }
 }
