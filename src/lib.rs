@@ -27,7 +27,7 @@ pub enum State {
 }
 
 pub struct Game {
-    player: Player,
+    pub player: Player,
     board: [Player; 9],
     total_turns: u8,
     winner: Player,
