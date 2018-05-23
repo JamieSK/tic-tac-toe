@@ -12,8 +12,8 @@ fn main() {
         match game.state() {
             State::InPlay => {
                 println!("\n{}", game.to_string());
-                let player = game.player;
-                match game.play(take_input(player)) {
+                let input = take_input(game.player);
+                match game.play(input) {
                     Err(e) => println!("{}", e),
                     _ => {},
                 }
@@ -23,7 +23,8 @@ fn main() {
                 break;
             },
             State::Won(player) => {
-                println!("\n{}, you've won!", player);
+                println!("\n{}", game.to_string());
+                println!("{}, you've won!", player);
                 break;
             },
         }
