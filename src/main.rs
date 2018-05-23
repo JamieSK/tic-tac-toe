@@ -3,19 +3,38 @@ extern crate noughts_and_crosses;
 use noughts_and_crosses::*;
 
 use std::io;
+use std::env::args;
 
 fn main() {
+    let mut is_two_player = true;
+    let mut human_player = Player::X;
+
+    match args().nth(1) {
+        Some(ref s) if s == "O" => {
+            human_player = Player::O;
+            is_two_player = false;
+        },
+        Some(ref s) if s == "X" => is_two_player = false,
+        _ => {},
+    }
+
     let mut game = Game::new();
     println!("Welcome to Noughts and Crosses.");
 
     loop {
         match game.state() {
             State::InPlay => {
-                println!("\n{}", game.to_string());
-                let input = take_input(game.player);
-                match game.play(input) {
-                    Err(e) => println!("{}", e),
-                    _ => {},
+                if !is_two_player && !(game.player == human_player) {
+                    let last_player = game.player;
+                    game.play_random();
+                    println!("\n{} played their move:", last_player);
+                } else {
+                    println!("\n{}", game.to_string());
+                    let input = take_input(game.player);
+                    match game.play(input) {
+                        Err(e) => println!("{}", e),
+                        _ => {},
+                    }
                 }
             },
             State::Stalemate => {

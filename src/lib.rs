@@ -1,3 +1,6 @@
+extern crate rand;
+
+use rand::{thread_rng, Rng};
 use std::fmt;
 
 #[derive(Debug, Copy, Clone, PartialEq)]
@@ -63,6 +66,16 @@ impl Game {
                 self.swap_player();
                 Ok("Played a turn")
             }
+        }
+    }
+
+    pub fn play_random(&mut self) {
+        let mut rng = thread_rng();
+        let n: usize = rng.gen_range(0, 10);
+
+        match self.play(n) {
+            Err(_) => self.play_random(),
+            Ok(_) => {},
         }
     }
 
