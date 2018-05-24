@@ -7,19 +7,19 @@ use noughts_and_crosses::Player;
 #[test]
 fn it_starts_blank() {
     let game = Game::new();
-    assert_eq!(" | | \n | | \n | | \n", game.to_string());
+    assert_eq!("1|2|3\n4|5|6\n7|8|9\n", game.to_string());
 }
 
 #[test]
 fn can_play_as_x() {
     let game = setup_game_and_play_in_cells(vec![1]);
-    assert_eq!("X| | \n | | \n | | \n", game.to_string());
+    assert_eq!("\u{1b}[34mX\u{1b}[0m|2|3\n4|5|6\n7|8|9\n", game.to_string());
 }
 
 #[test]
 fn can_play_as_o() {
     let game = setup_game_and_play_in_cells(vec![1, 2]);
-    assert_eq!("X|O| \n | | \n | | \n", game.to_string());
+    assert_eq!("\u{1b}[34mX\u{1b}[0m|\u{1b}[31mO\u{1b}[0m|3\n4|5|6\n7|8|9\n", game.to_string());
 }
 
 #[test]
@@ -31,7 +31,7 @@ fn cannot_play_in_occupied_cell() {
 #[test]
 fn can_play_in_all_cells() {
     let game = setup_game_and_play_in_cells(vec![1, 2, 3, 6, 4, 7, 5, 9, 8]);
-    assert_eq!("X|O|X\nX|X|O\nO|X|O\n", game.to_string());
+    assert_eq!("\u{1b}[34mX\u{1b}[0m|\u{1b}[31mO\u{1b}[0m|\u{1b}[34mX\u{1b}[0m\n\u{1b}[34mX\u{1b}[0m|\u{1b}[34mX\u{1b}[0m|\u{1b}[31mO\u{1b}[0m\n\u{1b}[31mO\u{1b}[0m|\u{1b}[34mX\u{1b}[0m|\u{1b}[31mO\u{1b}[0m\n", game.to_string());
 }
 
 #[test]

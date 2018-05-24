@@ -48,9 +48,9 @@ impl Game {
 
     pub fn to_string(&self) -> String {
         format!("{}|{}|{}\n{}|{}|{}\n{}|{}|{}\n",
-                self.board[0], self.board[1], self.board[2],
-                self.board[3], self.board[4], self.board[5],
-                self.board[6], self.board[7], self.board[8])
+                self.fmt_cell(0), self.fmt_cell(1), self.fmt_cell(2),
+                self.fmt_cell(3), self.fmt_cell(4), self.fmt_cell(5),
+                self.fmt_cell(6), self.fmt_cell(7), self.fmt_cell(8))
     }
 
     pub fn play(&mut self, cell: usize) -> Result<&str, &str> {
@@ -129,5 +129,17 @@ impl Game {
             Player::O => Player::X,
             Player::None => Player::None,
         }
+    }
+
+    fn fmt_cell(&self, cell: usize) -> String {
+        let player = self.board[cell];
+
+        let result = match player {
+            Player::X => format!("\x1b[34m{}\x1b[0m", player),
+            Player::O => format!("\x1b[31m{}\x1b[0m", player),
+            Player::None => format!("{}", cell + 1),
+        };
+
+        return result;
     }
 }
